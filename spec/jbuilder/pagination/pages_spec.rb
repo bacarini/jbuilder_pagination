@@ -8,6 +8,15 @@ describe 'Jbuilder#pages!' do
     it "returns full link pagination" do
       expect(build_json_for(collection)).to eq(response_json)
     end
+
+    it "returns links with custom per_page param" do
+      expect(build_json_for(collection, per_page_param: :foo_per_page_param)).to match(/foo_per_page_param/)
+    end
+
+    it "returns links with custom page param" do
+      expect(build_json_for(collection, page_param: :foo_page_param)).to match(/foo_page_param/)
+    end
+
   end
 
   context 'when there is no pagination for collection' do
@@ -24,10 +33,10 @@ describe 'Jbuilder#pages!' do
     end
   end
 
-  def build_json_for(collection)
+  def build_json_for(collection, options = {})
     Jbuilder.encode do |json|
       json.links do
-        json.pages! collection, url: "https://api.example.com/v1/servers"
+        json.pages! collection, options.merge(url: "https://api.example.com/v1/servers")
       end
     end
   end

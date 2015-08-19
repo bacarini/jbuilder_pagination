@@ -3,9 +3,14 @@ class Jbuilder
   def pages!(collection, options={})
     return unless collection
 
+    custom_page_param = options.fetch(:page_param, page_param)
+    custom_per_page_param = options.fetch(:per_page_param, per_page_param)
+
     pages do
       pages_from(collection).map do |k, v|
-        _set_value k, "#{options[:url]}?#{page_param}=#{v}&#{per_page_param}=#{collection.send(per_page_method)}"
+        url = "#{options[:url]}?#{custom_page_param}=#{v}&#{custom_per_page_param}=#{collection.send(per_page_method)}"
+
+        _set_value k, url
       end
     end
   end
