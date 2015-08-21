@@ -1,29 +1,41 @@
 class Jbuilder
-  def pages!(collection, options={})
-    return unless collection
+  ONE_PAGE = 1
 
-    pages do
-      pages_from(collection).map do |k, v|
-        _set_value k, "#{options[:url]}?page=#{v}&per_page=#{collection.per_page}"
-      end
+  def pages!(collection, options={})
+    return unless collection && is_paginated?(collection)
+
+    pages_from(collection).map do |key, value|
+      params = query_parameters(options).merge(page: { number: value, size: collection.size }).to_query
+      _set_value key, "#{options.fetch(:url, nil)}?#{params}"
     end
   end
 
   private
 
   def pages_from(collection)
-    return {} if collection.total_pages == 1
-
     {}.tap do |pages|
-      unless collection.current_page == 1
-        pages[:first] = 1
-        pages[:prev]  = collection.current_page - 1
+      pages[:self] = collection.current_page
+      return pages if collection.total_pages == ONE_PAGE
+
+      unless collection.current_page == ONE_PAGE
+        pages[:first] = ONE_PAGE
+        pages[:prev]  = collection.current_page - ONE_PAGE
       end
 
       unless collection.current_page == collection.total_pages
+        pages[:next] = collection.current_page + ONE_PAGE
         pages[:last] = collection.total_pages
-        pages[:next] = collection.current_page + 1
       end
     end
+  end
+
+  def query_parameters(options)
+    @query_parameters ||= options.fetch(:query_parameters, {})
+  end
+
+  def is_paginated?(collection)
+    collection.respond_to?(:current_page) &&
+      collection.respond_to?(:total_pages) &&
+      collection.respond_to?(:size)
   end
 end

@@ -4,7 +4,7 @@
 
 ## Requirement
 
-It is based on [will_paginate](https://github.com/mislav/will_paginate).
+`JbuilderPagination` relies on a paginated collection with the methods `current_page`, `total_pages`, and `size`, such as are supported by both [Kaminari](https://github.com/amatsuda/kaminari) or [WillPaginate](https://github.com/mislav/will_paginate).
 
 ## Installation
 
@@ -24,21 +24,42 @@ Or install it yourself as:
 
 ## Usage
 
+###### Kaminari examples
+```ruby
+#array
+@posts = Kaminari.paginate_array([1, 2, 3]).page(3).per(1)
+
+#active_record
+@posts = Post.page(3).per(1)
+```
+
+###### WillPaginate examples
+
+```ruby
+#array
+@posts = [1,2,3].paginate(page: 3, per_page: 1)
+
+#active_record
+@posts = Post.page(3).per_page(1)
+```
+
+And then in your `*.json.jbuilder`
+
 ```ruby
 json.links do
-  json.pages! @servers, url: "https://api.example.com/v1/servers"
+  json.pages! @posts, url: "http://example.com/posts", query_parameters: { additional: 'parameters' }
 end
 
 # =>
-#  "links": {
-#      "pages": {
-#          "first": "https://api.example.com/v1/servers/v1/servers?page=1&per_page=1",
-#          "prev": "https://api.example.com/v1/servers/v1/servers?page=1&per_page=1",
-#          "last": "https://api.example.com/v1/servers/v1/servers?page=3&per_page=1",
-#          "next": "https://api.example.com/v1/servers/v1/servers?page=3&per_page=1"
-#      }
-#  },
+#    "links": {
+#      "self": "http://example.com/posts?page[number]=3&page[size]=1&additional=parameters",
+#      "first": "http://example.com/posts?page[number]=1&page[size]=1&additional=parameters",
+#      "prev": "http://example.com/posts?page[number]=2&page[size]=1&additional=parameters",
+#      "next": "http://example.com/posts?page[number]=4&page[size]=1&additional=parameters",
+#      "last": "http://example.com/posts?page[number]=13&page[size]=1&additional=parameters"
+#    }
 ```
+The options `url` and  `query_parameters` are opcionals.
 
 In case there is no pagination at all, `links` will be omitted.
 
