@@ -31,9 +31,9 @@ Or install it yourself as:
 Import the `Pagination` module in your controller
 
 ```ruby
-    class ApplicationController < ActionController::API
-      include Pagination
-    end
+class ApplicationController < ActionController::API
+  include Pagination
+end
 
 ```
 
