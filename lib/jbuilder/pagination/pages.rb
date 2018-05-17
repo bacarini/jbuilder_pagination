@@ -30,7 +30,7 @@ class Jbuilder
   end
 
   def query_parameters(options)
-    @query_parameters ||= options.fetch(:query_parameters, {}) || {}
+    @query_parameters ||= (options.fetch(:query_parameters, {}) || {}).compact
   end
 
   def is_paginated?(collection)
