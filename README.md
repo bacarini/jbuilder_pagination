@@ -26,6 +26,17 @@ Or install it yourself as:
 
 ## Usage
 
+### Controller Module
+
+Import the `Pagination` module in your controller
+
+```ruby
+    class ApplicationController < ActionController::API
+      include Pagination
+    end
+
+```
+
 ###### Kaminari examples
 ```ruby
 #array
