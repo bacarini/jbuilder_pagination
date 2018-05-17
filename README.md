@@ -1,4 +1,4 @@
-# Jbuilder Pagination Plus [![Build Status](https://travis-ci.org/bacarini/jbuilder_pagination.svg?branch=master)](https://travis-ci.org/bacarini/jbuilder_pagination)
+# Jbuilder Pagination Plus [![Build Status](https://travis-ci.org/PinsterTeam/jbuilder_pagination_plus.svg?branch=master)](https://travis-ci.org/PinsterTeam/jbuilder_pagination_plus)
 
 [Jbuilder](https://github.com/rails/jbuilder) extension that makes easier to use pagination according to the [JSON API](http://jsonapi.org/format/#fetching-pagination) conventions.
 
