@@ -1,6 +1,7 @@
 language: ruby
 rvm:
-  - 2.0.0
+  - 2.4.3
+sudo: false
 install: bin/setup
 script:
   - bundle exec rspec spec
