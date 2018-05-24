@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe 'Jbuilder#pages!' do
+  context 'when there is no pagination for collection' do
+    let(:collection) { OpenStruct.new(current_page: 0, total_pages: 0, size: 0) }
+    let(:response_json) { File.read("spec/fixtures/no_pages_links.json").chomp }
+
+    it { expect(build_json_for(collection)).to eq(response_json) }
+  end
+
   context 'when there is pagination for collection' do
     let(:collection) { OpenStruct.new(current_page: 2, total_pages: 3, size: 1) }
     let(:response_json) { File.read("spec/fixtures/links.json").chomp }

@@ -15,7 +15,7 @@ class Jbuilder
   def pages_from(collection)
     {}.tap do |pages|
       pages[:self] = collection.current_page
-      return pages if collection.total_pages == ONE_PAGE
+      return pages if collection.total_pages <= ONE_PAGE
 
       unless collection.current_page == ONE_PAGE
         pages[:first] = ONE_PAGE
