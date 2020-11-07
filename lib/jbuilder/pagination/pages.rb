@@ -5,7 +5,7 @@ class Jbuilder
     return unless collection && is_paginated?(collection)
 
     pages_from(collection).map do |key, value|
-      params = query_parameters(options).merge(page: { number: value, size: collection.size }).to_query
+      params = query_parameters(options).merge(page: value, size: collection.size).to_query
       _set_value key, "#{options.fetch(:url, nil)}?#{params}"
     end
   end

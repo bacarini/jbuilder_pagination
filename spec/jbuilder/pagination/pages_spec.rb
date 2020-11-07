@@ -18,7 +18,7 @@ describe 'Jbuilder#pages!' do
 
   context 'when there is no pagination for collection' do
     let(:collection) { OpenStruct.new(current_page: 1, total_pages: 1, size: 1) }
-    let(:response_json) { {links: {self: "https://api.example.com/v1/servers?page%5Bnumber%5D=1&page%5Bsize%5D=1" } }.to_json }
+    let(:response_json) { {links: {self: "https://api.example.com/v1/servers?page=1&size=1" } }.to_json }
 
     it { expect(build_json_for(collection)).to eq(response_json) }
   end
