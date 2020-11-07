@@ -52,11 +52,11 @@ end
 
 # =>
 #    "links": {
-#      "self": "http://example.com/posts?page[number]=3&page[size]=1&additional=parameters",
-#      "first": "http://example.com/posts?page[number]=1&page[size]=1&additional=parameters",
-#      "prev": "http://example.com/posts?page[number]=2&page[size]=1&additional=parameters",
-#      "next": "http://example.com/posts?page[number]=4&page[size]=1&additional=parameters",
-#      "last": "http://example.com/posts?page[number]=13&page[size]=1&additional=parameters"
+#      "self": "http://example.com/posts?page=3&size=1&additional=parameters",
+#      "first": "http://example.com/posts?page=1&size=1&additional=parameters",
+#      "prev": "http://example.com/posts?page=2&size=1&additional=parameters",
+#      "next": "http://example.com/posts?page=4&size=1&additional=parameters",
+#      "last": "http://example.com/posts?page=13&size=1&additional=parameters"
 #    }
 ```
 The options `url` and  `query_parameters` are opcionals.
